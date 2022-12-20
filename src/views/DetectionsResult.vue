@@ -247,7 +247,7 @@ export default {
       }
     },
 
-    leave(){
+    leave() {
       this.$refs.zoom.reset();
     },
   },
