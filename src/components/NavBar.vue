@@ -10,8 +10,18 @@
           <li>
             <router-link to="/create_task" class="nav-link px-2 text-white">Создать задачу</router-link>
           </li>
-          <li><a href="#" class="nav-link px-2 text-white">Customers</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Products</a></li>
+          <li>
+            <router-link to="/user/12" class="nav-link px-2 text-white">Пользователь</router-link>
+          </li>
+          <li>
+            <router-link to="/run_detection" class="nav-link px-2 text-white">Запуск на детектирование</router-link>
+          </li>
+          <li>
+            <router-link to="/detections" class="nav-link px-2 text-white">Обноружение</router-link>
+          </li>
+          <li>
+            <router-link to="/detection_view/23" class="nav-link px-2 text-white">Результат обноружения</router-link>
+          </li>
         </ul>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">

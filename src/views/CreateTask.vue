@@ -24,10 +24,39 @@
         </div>
       </div>
 
+      <div class="mb-3">
+        <p class="text-lg mb-2">Срок исполнения задачи</p>
+        <input class="w-50 fs-6 p-2 rounded calendar" type="date"/>
+      </div>
 
+      <div class="mb-3">
+        <p class="text-lg mb-2">Выберите группу</p>
+        <select class="form-select w-50">
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <p class="text-lg mb-2">Выберите исполнителя</p>
+        <select class="form-select w-50">
+          <option value="1">Иванов</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="formFileMultiple" class="form-label">Добавить изображение</label>
+        <input class="form-control w-50" type="file" accept="image/*" id="formFileMultiple" multiple>
+      </div>
+
+      <div class="mb-3">
+        <button type="submit" class="btn btn-primary mb-3">Создать</button>
+      </div>
 
     </div>
-
   </div>
 
 
@@ -66,5 +95,8 @@ export default {
 </script>
 
 <style scoped>
+.calendar {
+  border: 1px solid #ced4da;
+}
 
 </style>
