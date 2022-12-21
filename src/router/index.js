@@ -5,6 +5,7 @@ import UserView from "@/views/UserView";
 import RunDetection from "@/views/RunDetection";
 import DetectionsPage from "@/views/DetectionsPage";
 import DetectionsResult from "@/views/DetectionsResult";
+import SettingsPage from "@/views/SettingsPage";
 
 const routes = [
     {
@@ -36,7 +37,12 @@ const routes = [
         path: '/detection_view/:id',
         name: 'detectionView',
         component: DetectionsResult
-    }
+    },
+    {
+        path: '/settings',
+        name: 'settings',
+        component: SettingsPage
+    },
 ]
 
 const router = createRouter({

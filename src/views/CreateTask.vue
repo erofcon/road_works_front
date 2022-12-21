@@ -11,7 +11,7 @@
     <div class="col-6 mx-auto">
       <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Описание задачи</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
       </div>
 
       <div class="mb-3">
