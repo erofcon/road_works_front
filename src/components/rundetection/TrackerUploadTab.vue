@@ -16,13 +16,43 @@
       <input @input="onselectDateTime" class="w-75 fs-6 p-2 rounded calendar" step="1" type="datetime-local" required/>
     </div>
 
-    <div class="mb-3">
+    <div v-if="!on_submitted" class="my-4">
       <button type="submit" class="btn btn-sm btn-outline-primary mb-3">Отправить</button>
     </div>
+    <div v-if="on_submitted">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" :style="{width: uploadProgress+'%'}">
+          {{ uploadProgress }}%
+        </div>
+      </div>
+    </div>
   </form>
+
+
+  <div v-if="send_success">
+    <div class="alert alert-dismissible alert-success" role="alert">
+      Файлы успешно загружны на сервер
+      <button type="button" class="btn-close" data-bs-dismiss="alert"
+              aria-label="Close"></button>
+    </div>
+  </div>
+
+  <div v-if="send_error">
+    <div class="alert alert-dismissible alert-danger" role="alert">
+      Ошибка загрузки файлов
+      <button type="button" class="btn-close" data-bs-dismiss="alert"
+              aria-label="Close"></button>
+    </div>
+  </div>
+
+
 </template>
 
 <script>
+
+import {Post} from "@/api/apiroutes";
+import {mapState} from "vuex";
+
 export default {
   name: "TrackerUploadTab",
   data() {
@@ -30,6 +60,9 @@ export default {
       description: '',
       video_file: null,
       start_datetime: null,
+      on_submitted: false,
+      send_error: false,
+      send_success: false,
     }
   },
   methods: {
@@ -40,10 +73,24 @@ export default {
       this.start_datetime = event.target.value;
     },
     upload() {
-      console.log(this.description);
-      console.log(this.video_file);
-      console.log(this.start_datetime);
+      this.send_success = false;
+      this.send_error = false;
+      this.on_submitted = true;
+      Post.runDetectionWithTracker(this.description, this.video_file, this.start_datetime).then(() => {
+        this.on_submitted = false;
+        this.send_success = true
+      }).catch(reason => {
+        this.on_submitted = false;
+        this.send_error = false;
+      });
     }
+  },
+  computed: {
+    ...mapState(
+        {
+          uploadProgress: state => state.trackerDetectionUpload.uploadProgress,
+        }
+    )
   }
 }
 </script>

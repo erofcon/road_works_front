@@ -1,8 +1,12 @@
 import {defaultApiInstance} from "@/api";
 import store from "@/store";
-import "./api_names";
 
-export const Get = {}
+export const Get = {
+    getAllDetections() {
+        const url = '/get_all_detections';
+        return defaultApiInstance.get(url);
+    },
+}
 
 export const Post = {
     runDetectionWithXml(description, video, xmlFile) {
@@ -21,5 +25,23 @@ export const Post = {
                 'Content-Type': 'multipart/form-data'
             }
         })
-    }
+    },
+
+    runDetectionWithTracker(description, video, startDatetime) {
+        const form = new FormData();
+        form.append('description', description);
+        form.append('video_file', video);
+        form.append('video_start_datetime', startDatetime);
+
+        return defaultApiInstance.post('/run_detection_with_tracker', form, {
+            onUploadProgress: function (progressEvent) {
+                store.state.trackerDetectionUpload.uploadProgress = parseInt(
+                    Math.round((progressEvent.loaded / progressEvent.total) * 100)
+                )
+            },
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
 }

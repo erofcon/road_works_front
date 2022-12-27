@@ -89,7 +89,7 @@ export default {
   computed: {
     ...mapState(
         {
-          uploadProgress: state => state.xmlDetectionUpload.uploadProgress
+          uploadProgress: state => state.xmlDetectionUpload.uploadProgress,
         }
     )
   }
