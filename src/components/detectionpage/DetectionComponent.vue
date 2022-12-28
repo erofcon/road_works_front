@@ -23,7 +23,9 @@
         </div>
         <div class="col-auto">
           <div>
-            <button class="btn btn-outline-primary btn-sm">Открыть</button>
+            <button @click="$router.push('/detection_view/'+data.id)" class="btn btn-outline-primary btn-sm">
+              Открыть
+            </button>
           </div>
         </div>
       </div>

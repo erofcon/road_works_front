@@ -6,6 +6,10 @@ export const Get = {
         const url = '/get_all_detections';
         return defaultApiInstance.get(url);
     },
+    getDetectionImages(detectionId) {
+        const url = '/get_detection_images';
+        return defaultApiInstance.get(url, {params: {'detection_id': detectionId}})
+    }
 }
 
 export const Post = {
