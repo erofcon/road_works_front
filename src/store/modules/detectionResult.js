@@ -1,4 +1,4 @@
-import {Get} from "@/api/apiroutes";
+import {Get, Post} from "@/api/apiroutes";
 
 export const detectionResult = {
     namespaced: true,
@@ -12,38 +12,36 @@ export const detectionResult = {
             state.detectionImages = value;
         },
         setSelectOneSelectImage(state, value) {
-
-            if (state.oneSelectImage != null) {
-                state.selectedImage = state.selectedImage.filter(value1 => value1.id !== state.oneSelectImage.id)
-            }
-
             state.oneSelectImage = value;
-            if (!state.selectedImage.find(value1 => value1.id === value.id)) {
-                state.selectedImage.push(value);
-            }
-            // const arr = state.selectedImage.find(value1 => value1.id === value.id);
-            // console.log(arr);
-            // state.selectedImage.push(value);
         },
-        setSelectedImage(state, {img, status}) {
-            if (status === true) {
-                state.selectedImage.push(img);
-            } else {
-                state.selectedImage = state.selectedImage.filter(value => value.id !== img.id)
-            }
+        setSelectedImages(state, value) {
+            state.selectedImage = value;
         },
-        deleteDetectionImage(state) {
-            for (const i in state.selectedImage) {
+        deleteImages(state) {
+            for (let i in state.selectedImage) {
                 state.detectionImages = state.detectionImages.filter(value => value.id !== state.selectedImage[i].id)
             }
+
             state.selectedImage = [];
-        }
+            state.oneSelectImage = null;
+        },
+        resetStore(state) {
+            state.detectionImages = [];
+            state.oneSelectImage = null;
+            state.selectedImage = [];
+        },
     },
     actions: {
         getDetectionImages({commit}, {id}) {
             Get.getDetectionImages(id).then(value => {
                 commit('setDetectionImages', value.data);
             });
+        },
+        async deleteImages({commit, state}) {
+            for (let i in state.selectedImage) {
+                await Post.deleteDetectionImage(state.selectedImage[i].id);
+            }
+            commit('deleteImages');
         }
     }
 

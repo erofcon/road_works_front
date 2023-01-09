@@ -8,11 +8,42 @@ export const Get = {
     },
     getDetectionImages(detectionId) {
         const url = '/get_detection_images';
-        return defaultApiInstance.get(url, {params: {'detection_id': detectionId}})
+        return defaultApiInstance.get(url, {
+            params: {'detection_id': detectionId}
+        })
+    },
+    getRelatedGroups() {
+        const url = '/related_groups';
+        return defaultApiInstance.get(url);
+    },
+    getRelatedExecutorUsers(groupId) {
+        const url = '/get_related_executor_users';
+        return defaultApiInstance.get(url, {
+            params: {'group_id': groupId}
+        });
+    },
+    getTask(task_id) {
+        const url = '/get_task';
+
+        return defaultApiInstance.get(url, {
+            params: {'task_id': task_id}
+        });
+    },
+    getAnswers(task_id) {
+        const url = '/get_answers';
+
+        return defaultApiInstance.get(url, {
+            params: {'task_id': task_id}
+        })
     }
 }
 
 export const Post = {
+    getToken(data) {
+        const url = '/token';
+        return defaultApiInstance.post(url, data, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
+    },
+
     runDetectionWithXml(description, video, xmlFile) {
         const form = new FormData();
         form.append('description', description);
@@ -35,7 +66,7 @@ export const Post = {
         const form = new FormData();
         form.append('description', description);
         form.append('video_file', video);
-        form.append('video_start_datetime', startDatetime);
+        form.append('video_start_datetime', startDatetime.toISOString().slice(0, -1));
 
         return defaultApiInstance.post('/run_detection_with_tracker', form, {
             onUploadProgress: function (progressEvent) {
@@ -43,9 +74,31 @@ export const Post = {
                     Math.round((progressEvent.loaded / progressEvent.total) * 100)
                 )
             },
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
+            headers: {'Content-Type': 'multipart/form-data'}
         })
     },
+
+    createTask(description, expireDatetime, latitude, longitude, groupID, executorID, files) {
+        const form = new FormData();
+        form.append('description', description);
+        form.append('lead_datetime', expireDatetime.toISOString().slice(0, -1));
+        form.append('latitude', latitude ?? '');
+        form.append('longitude', longitude ?? '');
+        form.append('executor_id', executorID);
+        form.append('group_id', groupID);
+
+        if (files) {
+            for (let i = 0; i < files.length; i++) {
+                form.append('files', files[i]);
+            }
+        }
+
+        return defaultApiInstance.post('/create_task', form, {headers: {'Content-Type': 'multipart/form-data'}})
+    },
+
+    deleteDetectionImage(detectionImageId) {
+        const form = new FormData()
+        form.append('detection_image_id', detectionImageId)
+        return defaultApiInstance.post('/delete_detection_images', form, {headers: {'Content-Type': 'multipart/form-data'}})
+    }
 }

@@ -1,17 +1,16 @@
 import {createRouter, createWebHistory} from 'vue-router'
-import WelcomePage from "@/views/WelcomePage.vue";
+import Authentication from "@/views/Authentication.vue";
+import HomePage from "@/views/HomePage.vue";
 import CreateTask from "@/views/CreateTask.vue";
-import UserView from "@/views/UserView";
-import RunDetection from "@/views/RunDetection";
-import DetectionsPage from "@/views/DetectionsPage";
-import DetectionsResult from "@/views/DetectionsResult";
-import SettingsPage from "@/views/SettingsPage";
+import RunDetection from "@/views/RunDetection.vue";
+import TaskView from "@/views/TaskView.vue";
+
 
 const routes = [
     {
         path: '/',
         name: 'home',
-        component: WelcomePage,
+        component: HomePage,
     },
     {
         path: '/create_task',
@@ -19,35 +18,39 @@ const routes = [
         component: CreateTask,
     },
     {
-        path: '/user/:id',
-        name: 'user',
-        component: UserView,
-    },
-    {
         path: '/run_detection',
         name: 'runDetection',
         component: RunDetection,
     },
     {
-        path: '/detections',
-        name: 'detectionsPage',
-        component: DetectionsPage,
+        path: '/task/:id',
+        name: 'task',
+        component: TaskView,
     },
     {
-        path: '/detection_view/:id',
-        name: 'detectionView',
-        component: DetectionsResult
+        path: '/login',
+        name: 'login',
+        component: Authentication,
     },
-    {
-        path: '/settings',
-        name: 'settings',
-        component: SettingsPage
-    },
+
 ]
 
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes
 })
+
+router.beforeEach((to, from, next) => {
+    const publicPages = ['/login'];
+    const authRequired = !publicPages.includes(to.path);
+    const loggedIn = localStorage.getItem('user');
+
+    if (authRequired && !loggedIn) {
+        next('/login');
+    } else {
+        next();
+    }
+
+});
 
 export default router
