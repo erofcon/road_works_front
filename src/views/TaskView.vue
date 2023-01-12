@@ -10,6 +10,7 @@
       </div>
     </Panel>
     <TaskAnswer :base-url="baseUrl" class="my-6"/>
+    <TaskControl/>
   </div>
 </template>
 
@@ -21,10 +22,11 @@ import AboutTask from "@/components/taskview/AboutTask.vue";
 import TaskAnswer from "@/components/taskview/TaskAnswer";
 
 import moment from 'moment';
+import TaskControl from "@/components/taskview/TaskControl";
 
 export default {
   name: "TaskView",
-  components: {AboutTask, TaskImages, TaskAnswer},
+  components: {TaskControl, AboutTask, TaskImages, TaskAnswer},
   data() {
     return {
       baseUrl: defaultApiInstance.defaults.baseURL,

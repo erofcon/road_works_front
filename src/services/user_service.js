@@ -1,7 +1,7 @@
 class UserService {
     getLocalRefreshToken() {
         try {
-            const user = JSON.parse(localStorage.getItem('user'));
+            const user = JSON.parse(localStorage.getItem('current_user'));
             return user?.refresh_token;
         } catch (e) {
             return null;
@@ -10,7 +10,7 @@ class UserService {
 
     getLocalAccessToken() {
         try {
-            const user = JSON.parse(localStorage.getItem('user'));
+            const user = JSON.parse(localStorage.getItem('current_user'));
             return user?.access_token;
         } catch (e) {
             return null;
@@ -19,13 +19,13 @@ class UserService {
     }
 
     getLocalUserName() {
-        const user = JSON.parse(localStorage.getItem('user'));
-        return user?.username;
+        const user = JSON.parse(localStorage.getItem('current_user'));
+        return user?.user.username;
     }
 
     getUser() {
         try {
-            return JSON.parse(localStorage.getItem('user'));
+            return JSON.parse(localStorage.getItem('current_user'));
         } catch (e) {
             return null;
         }
@@ -33,11 +33,11 @@ class UserService {
     }
 
     setUser(user) {
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('current_user', JSON.stringify(user));
     }
 
     removeUser() {
-        localStorage.removeItem('user');
+        localStorage.removeItem('current_user');
     }
 }
 

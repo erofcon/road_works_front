@@ -1,6 +1,6 @@
 <template>
   <DataTable :value="taskAnswers" class="p-datatable-sm">
-    <Column :sortable="true" header="Дата">
+    <Column header="Дата">
       <template #body="{data}">
           <span>
             {{ moment(new Date(data.create_datetime)).format('YYYY.MM.DD') }}

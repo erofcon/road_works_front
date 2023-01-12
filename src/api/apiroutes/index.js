@@ -5,36 +5,37 @@ export const Get = {
     getAllDetections() {
         const url = '/get_all_detections';
         return defaultApiInstance.get(url);
-    },
-    getDetectionImages(detectionId) {
+    }, getDetectionImages(detectionId) {
         const url = '/get_detection_images';
         return defaultApiInstance.get(url, {
             params: {'detection_id': detectionId}
         })
-    },
-    getRelatedGroups() {
+    }, getRelatedGroups() {
         const url = '/related_groups';
         return defaultApiInstance.get(url);
-    },
-    getRelatedExecutorUsers(groupId) {
+    }, getRelatedExecutorUsers(groupId) {
         const url = '/get_related_executor_users';
         return defaultApiInstance.get(url, {
             params: {'group_id': groupId}
         });
-    },
-    getTask(task_id) {
+    }, getTask(taskID) {
         const url = '/get_task';
 
         return defaultApiInstance.get(url, {
-            params: {'task_id': task_id}
+            params: {'task_id': taskID}
         });
-    },
-    getAnswers(task_id) {
+    }, getAnswers(taskID) {
         const url = '/get_answers';
 
         return defaultApiInstance.get(url, {
-            params: {'task_id': task_id}
-        })
+            params: {'task_id': taskID}
+        });
+    }, closeTask(taskID) {
+        const url = '/close_task';
+
+        return defaultApiInstance(url, {
+            params: {'task_id': taskID}
+        });
     }
 }
 
@@ -52,11 +53,8 @@ export const Post = {
 
         return defaultApiInstance.post('/run_detection_with_xml', form, {
             onUploadProgress: function (progressEvent) {
-                store.state.xmlDetectionUpload.uploadProgress = parseInt(
-                    Math.round((progressEvent.loaded / progressEvent.total) * 100)
-                )
-            },
-            headers: {
+                store.state.xmlDetectionUpload.uploadProgress = parseInt(Math.round((progressEvent.loaded / progressEvent.total) * 100))
+            }, headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
@@ -70,11 +68,8 @@ export const Post = {
 
         return defaultApiInstance.post('/run_detection_with_tracker', form, {
             onUploadProgress: function (progressEvent) {
-                store.state.trackerDetectionUpload.uploadProgress = parseInt(
-                    Math.round((progressEvent.loaded / progressEvent.total) * 100)
-                )
-            },
-            headers: {'Content-Type': 'multipart/form-data'}
+                store.state.trackerDetectionUpload.uploadProgress = parseInt(Math.round((progressEvent.loaded / progressEvent.total) * 100))
+            }, headers: {'Content-Type': 'multipart/form-data'}
         })
     },
 
@@ -100,5 +95,19 @@ export const Post = {
         const form = new FormData()
         form.append('detection_image_id', detectionImageId)
         return defaultApiInstance.post('/delete_detection_images', form, {headers: {'Content-Type': 'multipart/form-data'}})
-    }
+    },
+
+    createAnswer(description, files, taskID) {
+        const form = new FormData();
+        form.append('description', description);
+        form.append('task_id', taskID);
+
+        if (files) {
+            for (let i = 0; i < files.length; i++) {
+                form.append('files', files[i]);
+            }
+        }
+
+        return defaultApiInstance.post('/create_answer', form, {headers: {'Content-Type': 'multipart/form-data'}})
+    },
 }

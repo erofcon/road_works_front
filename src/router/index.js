@@ -4,6 +4,9 @@ import HomePage from "@/views/HomePage.vue";
 import CreateTask from "@/views/CreateTask.vue";
 import RunDetection from "@/views/RunDetection.vue";
 import TaskView from "@/views/TaskView.vue";
+import DetectionsResultList from "@/views/DetectionsResultList";
+import DetectionResultView from "@/views/DetectionResultView";
+import TaskList from "@/views/TaskList";
 
 
 const routes = [
@@ -27,6 +30,22 @@ const routes = [
         name: 'task',
         component: TaskView,
     },
+    {
+        path: '/detection_result',
+        name: 'detectionResult',
+        component: DetectionsResultList,
+    },
+    {
+        path: '/detection_result_view/:id',
+        name: 'detectionResultView',
+        component: DetectionResultView,
+    },
+    {
+        path: '/task_list',
+        name: 'TaskList',
+        component: TaskList,
+    },
+
     {
         path: '/login',
         name: 'login',

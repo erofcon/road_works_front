@@ -93,6 +93,14 @@ export default {
           label: 'Одна задача',
           to: '/task/1',
         },
+        {
+          label: 'Результат детектирования',
+          to: '/detection_result',
+        },
+        {
+          label: 'Список задач',
+          to: '/task_list',
+        },
       ]
     }
   },

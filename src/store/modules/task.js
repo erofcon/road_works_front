@@ -9,6 +9,19 @@ export const task = {
         }, setTaskAnswers(state, value) {
             state.taskAnswers = value;
         },
+        appendTaskAnswer(state, value) {
+            if (state.taskAnswers) {
+                state.taskAnswers.push(value)
+            } else {
+                state.taskAnswers = value
+            }
+        },
+        changeTaskStatus(state) {
+            if (state.task) {
+                state.task.task_status = 'is_done';
+            }
+        },
+
     }, actions: {
         getTask({commit}, {taskId}) {
             Get.getTask(taskId).then(value => {
@@ -22,6 +35,6 @@ export const task = {
             }, reason => {
                 console.log(reason);
             })
-        }
+        },
     }
 }

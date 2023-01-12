@@ -1,13 +1,11 @@
 import {Post} from "@/api/apiroutes";
 import User_service from "@/services/user_service";
 
-// const user = JSON.parse(localStorage.getItem('userData')) || null;
+const currentUser = User_service.getUser();
 
-const user = User_service.getUser();
-
-const initialState = user
-    ? {status: {loggedIn: true}, user}
-    : {status: {loggedIn: false}, user: null};
+const initialState = currentUser
+    ? {status: {loggedIn: true}, currentUser}
+    : {status: {loggedIn: false}, currentUser: null};
 
 export const authenticate = {
     namespaced: true,
@@ -15,19 +13,19 @@ export const authenticate = {
     mutations: {
         loginSuccess(state, user) {
             state.status.loggedIn = true;
-            state.user = user;
+            state.currentUser = user;
         },
         loginFailure(state) {
             state.status.loggedIn = false;
-            state.user = null;
+            state.currentUser = null;
         },
         logout(state) {
             state.status.loggedIn = false;
-            state.user = null;
+            state.currentUser = null;
         },
         refreshToken(state, accessToken) {
             state.status.loggedIn = true;
-            state.user = {...state.user, access_token: accessToken};
+            state.currentUser = {...state.currentUser, access_token: accessToken};
         }
     },
     getters: {

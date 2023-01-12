@@ -3,7 +3,8 @@ import store from "@/store";
 import router from './router';
 import PrimeVue from 'primevue/config';
 import VCalendar from 'v-calendar';
-
+import ToastService from 'primevue/toastservice';
+import ConfirmationService from 'primevue/confirmationservice';
 
 import AppWrapper from "@/AppWrapper.vue";
 
@@ -34,6 +35,9 @@ import Chip from 'primevue/chip';
 import DataTable from "primevue/datatable";
 import Column from 'primevue/column';
 import Image from 'primevue/image';
+import Toast from 'primevue/toast';
+import ConfirmDialog from 'primevue/confirmdialog';
+
 
 const app = createApp(AppWrapper);
 
@@ -41,6 +45,8 @@ app.use(store);
 app.use(router);
 app.use(PrimeVue);
 app.use(VCalendar, {});
+app.use(ToastService);
+app.use(ConfirmationService);
 
 app.component('Card', Card);
 app.component('InputText', InputText);
@@ -62,5 +68,7 @@ app.component('Chip', Chip);
 app.component('DataTable', DataTable);
 app.component('Column', Column);
 app.component('Image', Image);
+app.component('Toast', Toast);
+app.component('ConfirmDialog', ConfirmDialog);
 
 app.mount('#app');
