@@ -37,7 +37,7 @@ import Column from 'primevue/column';
 import Image from 'primevue/image';
 import Toast from 'primevue/toast';
 import ConfirmDialog from 'primevue/confirmdialog';
-
+import RadioButton from 'primevue/radiobutton';
 
 const app = createApp(AppWrapper);
 
@@ -70,5 +70,6 @@ app.component('Column', Column);
 app.component('Image', Image);
 app.component('Toast', Toast);
 app.component('ConfirmDialog', ConfirmDialog);
+app.component('RadioButton', RadioButton);
 
 app.mount('#app');
