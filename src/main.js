@@ -38,6 +38,7 @@ import Image from 'primevue/image';
 import Toast from 'primevue/toast';
 import ConfirmDialog from 'primevue/confirmdialog';
 import RadioButton from 'primevue/radiobutton';
+import ScrollTop from 'primevue/scrolltop';
 
 const app = createApp(AppWrapper);
 
@@ -71,5 +72,6 @@ app.component('Image', Image);
 app.component('Toast', Toast);
 app.component('ConfirmDialog', ConfirmDialog);
 app.component('RadioButton', RadioButton);
+app.component('ScrollTop', ScrollTop);
 
 app.mount('#app');

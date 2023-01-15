@@ -5,6 +5,7 @@ import {detectionResult} from "@/store/modules/detectionResult";
 import {authenticate} from "@/store/modules/authenticate";
 import {createTask} from "@/store/modules/createtask";
 import {task} from "@/store/modules/task";
+import {taskList} from "@/store/modules/taskList";
 
 export default createStore({
     state: {},
@@ -17,5 +18,6 @@ export default createStore({
         authenticate: authenticate,
         createTask: createTask,
         task: task,
+        taskList: taskList,
     },
 })

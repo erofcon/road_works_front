@@ -99,7 +99,7 @@ export default {
         },
         {
           label: 'Список задач',
-          to: '/task_list',
+          to: '/task_list/on_execution',
         },
       ]
     }

@@ -41,7 +41,7 @@ const routes = [
         component: DetectionResultView,
     },
     {
-        path: '/task_list',
+        path: '/task_list/:tasks_type',
         name: 'TaskList',
         component: TaskList,
     },
