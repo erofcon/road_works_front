@@ -9,16 +9,11 @@
 </template>
 
 <script>
-import {LMap, LTileLayer, LMarker} from "@vue-leaflet/vue-leaflet";
+
 import {mapState} from "vuex";
 
 export default {
   name: "TaskLocation",
-  components: {
-    LMap,
-    LTileLayer,
-    LMarker,
-  },
   data() {
     return {
       url: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',

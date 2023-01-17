@@ -7,6 +7,7 @@ import TaskView from "@/views/TaskView.vue";
 import DetectionsResultList from "@/views/DetectionsResultList";
 import DetectionResultView from "@/views/DetectionResultView";
 import TaskList from "@/views/TaskList";
+import MapView from "@/views/MapView";
 
 
 const routes = [
@@ -45,7 +46,11 @@ const routes = [
         name: 'TaskList',
         component: TaskList,
     },
-
+    {
+        path: '/map',
+        name: 'MapView',
+        component: MapView,
+    },
     {
         path: '/login',
         name: 'login',

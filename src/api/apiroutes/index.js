@@ -68,6 +68,19 @@ export const Get = {
         })
 
     },
+    getGeoJsonDoneTasks(page = 1, size = 10) {
+        const url = '/get_geo_json_done_tasks';
+        return defaultApiInstance(url);
+    },
+    getDoneTaskWithLocation(latitude, longitude) {
+        const url = '/get_done_task_with_location';
+        return defaultApiInstance(url, {
+            params: {
+                latitude: latitude,
+                longitude: longitude,
+            }
+        });
+    },
 }
 
 export const Post = {

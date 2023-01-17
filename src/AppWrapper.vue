@@ -1,4 +1,5 @@
 <template>
+
   <Authentication v-if="$route.path === '/login'"/>
   <App v-else/>
 </template>
@@ -14,7 +15,7 @@ export default {
 </script>
 
 <style>
-*{
+* {
   margin: 0;
   padding: 0;
 }

@@ -2,7 +2,7 @@
   <div v-if="isLoading" class="flex align-items-center justify-content-center">
     <ProgressSpinner strokeWidth="3" animationDuration="1s" class="w-4rem"/>
   </div>
-  <div class="mt-5">
+  <div class="mt-5 container">
     <div v-for="data in loadedData" class="col-5 mx-auto my-4 border-round border-1 border-gray-100 shadow-2">
       <div class="p-2 flex align-items-center justify-content-between">
         <div>

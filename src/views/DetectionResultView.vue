@@ -3,7 +3,7 @@
     <ProgressSpinner strokeWidth="3" animationDuration="1s" class="w-4rem"/>
   </div>
 
-  <div v-else class="col">
+  <div v-else class="col container">
     <div class="grid">
       <ImageGrid :base-url="baseUrl"/>
       <DetailImage :base-url="baseUrl"/>

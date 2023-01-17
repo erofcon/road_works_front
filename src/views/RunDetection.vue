@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 sm:col-10 md:col-8 mx-auto mb-8 px-4">
+  <div class="col-12 sm:col-10 md:col-8 mx-auto mb-8 px-4 container">
     <RunDetectionHeader class="mb-8"/>
     <TabMenu :model="items"/>
     <component v-bind:is="{...currentComponent}"/>

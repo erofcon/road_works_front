@@ -2,7 +2,7 @@
   <div v-if="loading" class="flex align-items-center justify-content-center">
     <ProgressSpinner strokeWidth="3" animationDuration="1s" class="w-4rem"/>
   </div>
-  <div v-else class="col xl:col-10 mx-auto my-5">
+  <div v-else class="col xl:col-10 mx-auto my-5 container">
     <div v-if="tasks" class="grid">
       <div class="col">
         <TaskListHead/>

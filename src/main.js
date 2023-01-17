@@ -14,6 +14,7 @@ import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
 import "leaflet/dist/leaflet.css";
 import 'v-calendar/dist/style.css';
+import "@/assets/global.css";
 
 import Card from "primevue/card";
 import InputText from 'primevue/inputtext';
@@ -39,6 +40,15 @@ import Toast from 'primevue/toast';
 import ConfirmDialog from 'primevue/confirmdialog';
 import RadioButton from 'primevue/radiobutton';
 import ScrollTop from 'primevue/scrolltop';
+import Menu from 'primevue/menu';
+import Sidebar from 'primevue/sidebar';
+import Avatar from 'primevue/avatar';
+import {LMap} from "@vue-leaflet/vue-leaflet";
+import {LTileLayer} from "@vue-leaflet/vue-leaflet";
+import {LMarker} from "@vue-leaflet/vue-leaflet";
+import {LControlLayers} from "@vue-leaflet/vue-leaflet";
+import {LGeoJson} from "@vue-leaflet/vue-leaflet";
+import {LPopup} from "@vue-leaflet/vue-leaflet";
 
 const app = createApp(AppWrapper);
 
@@ -73,5 +83,14 @@ app.component('Toast', Toast);
 app.component('ConfirmDialog', ConfirmDialog);
 app.component('RadioButton', RadioButton);
 app.component('ScrollTop', ScrollTop);
+app.component('Menu', Menu);
+app.component('Sidebar', Sidebar);
+app.component('Avatar', Avatar);
+app.component('LMap', LMap);
+app.component('LTileLayer', LTileLayer);
+app.component('LMarker', LMarker);
+app.component('LControlLayers', LControlLayers);
+app.component('LGeoJson', LGeoJson);
+app.component('LPopup', LPopup);
 
 app.mount('#app');

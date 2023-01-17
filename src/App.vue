@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <NavBar/>
-    <router-view/>
-  </div>
-
+  <NavBar/>
+  <router-view/>
 </template>
 
 <script>
@@ -18,7 +15,6 @@ export default {
 </script>
 
 <style>
-
 
 
 </style>
