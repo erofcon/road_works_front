@@ -44,7 +44,7 @@
 
     <Menu id="overlay_menu" class="mt-3" ref="menu" :model="createItems" :popup="true">
       <template #item="{item}">
-        <div class="col">
+        <div class="col p-3">
           <router-link :to="item.to">{{ item.label }}</router-link>
         </div>
       </template>
@@ -179,11 +179,13 @@ export default {
 <style lang="scss" scoped>
 
 .navbar {
-  background-color: #343a40;
+  background-color: #24292f;
 }
 
 a {
   text-decoration: none;
+  font-size: 16px;
+  color: #24292f;
 }
 
 nav ul li {
@@ -192,10 +194,11 @@ nav ul li {
   padding: 0 13px 0 13px;
   cursor: pointer;
   color: white;
+  font-size: 16px;
 }
 
 nav ul li:hover {
-  color: white;
+  color: #b4b4b4;
 }
 
 .sidebar-button {
