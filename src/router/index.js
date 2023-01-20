@@ -64,17 +64,17 @@ const router = createRouter({
     routes
 })
 
-router.beforeEach((to, from, next) => {
-    const publicPages = ['/login'];
-    const authRequired = !publicPages.includes(to.path);
-    const loggedIn = localStorage.getItem('user');
-
-    if (authRequired && !loggedIn) {
-        next('/login');
-    } else {
-        next();
-    }
-
-});
+// router.beforeEach((to, from, next) => {
+//     const publicPages = ['/login'];
+//     const authRequired = !publicPages.includes(to.path);
+//     const loggedIn = localStorage.getItem('user');
+//
+//     if (authRequired && !loggedIn) {
+//         next('/login');
+//     } else {
+//         next();
+//     }
+//
+// });
 
 export default router
