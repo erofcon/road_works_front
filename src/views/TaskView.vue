@@ -2,16 +2,32 @@
   <div v-if="loading" class="flex align-items-center justify-content-center">
     <ProgressSpinner strokeWidth="3" animationDuration="1s" class="w-4rem"/>
   </div>
-  <div v-else-if="task!==null" class="col md:col-10 mx-auto mb-8 px-4 py-5">
-    <Panel v-if="task" :header="'Задача № '+task.id">
+
+  <Card v-else-if="task!==null" class="my-4 container">
+    <template #content>
       <div class="grid">
-        <TaskImages class="col-8 mx-auto" :base-url="baseUrl"/>
-        <AboutTask class="col ml-6"/>
+        <div v-if="task.task_images.length>0" class="col-12 lg:col-6">
+          <TaskImages :base-url="baseUrl"/>
+        </div>
+        <div class="col-12 lg:col-6 py-3 lg:pl-6">
+          <AboutTask/>
+        </div>
       </div>
-    </Panel>
-    <TaskAnswer :base-url="baseUrl" class="my-6"/>
-    <TaskControl/>
-  </div>
+    </template>
+  </Card>
+
+
+
+<!--  <div v-else-if="task!==null" class="col md:col-10 mx-auto mb-8 px-4 py-5">-->
+<!--    <Panel v-if="task" :header="'Задача № '+task.id">-->
+<!--      <div class="grid">-->
+<!--        <TaskImages class="col-8 mx-auto" :base-url="baseUrl"/>-->
+<!--        <AboutTask class="col ml-6"/>-->
+<!--      </div>-->
+<!--    </Panel>-->
+<!--    <TaskAnswer :base-url="baseUrl" class="my-6"/>-->
+<!--    <TaskControl/>-->
+<!--  </div>-->
 </template>
 
 <script>
@@ -48,6 +64,28 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+:deep(.p-galleria) {
+  .p-galleria-thumbnail-container {
+    background: none;
+  }
+}
+
+:deep(.p-galleria .p-galleria-thumbnail-container){
+  .p-galleria-thumbnail-next{
+    background-color: #3B82F6;
+  }
+  .p-galleria-thumbnail-prev{
+    background-color: #3B82F6;
+  }
+
+  .p-galleria-thumbnail-next:hover{
+    background-color: #3B82F6;
+
+  }
+  .p-galleria-thumbnail-prev:hover{
+    background-color: #3B82F6;
+  }
+}
 
 </style>

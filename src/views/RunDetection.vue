@@ -41,6 +41,36 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+:deep(.p-tabmenu) {
+  .p-tabmenu-nav {
+    background: none;
+  }
+}
+
+:deep(.p-tabmenu .p-tabmenu-nav) {
+  .p-tabmenuitem {
+    background: none;
+  }
+}
+
+:deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem) {
+  .p-menuitem-link {
+    background: none;
+  }
+}
+
+:deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover) {
+  .p-menuitem-link {
+    background: none;
+  }
+}
+
+:deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight) {
+  .p-menuitem-link {
+    background: none;
+  }
+}
 
 </style>

@@ -1,4 +1,23 @@
-const { defineConfig } = require('@vue/cli-service')
+const {defineConfig} = require('@vue/cli-service')
 module.exports = defineConfig({
-  transpileDependencies: true
+    transpileDependencies: true,
 })
+
+//
+// module.exports = {
+//     configureWebpack:{
+//         module: {
+//             rules: [
+//                 {
+//                     test: /\.scss$/,
+//                     use: [
+//                         'vue-style-loader',
+//                         'css-loader',
+//                         'sass-loader'
+//                     ]
+//                 }
+//             ]
+//         },
+//     },
+//
+// }

@@ -20,7 +20,6 @@
 
 <script>
 import {mapState} from "vuex";
-import VueZoomer from "vue-zoomer/src/vue-zoomer";
 
 export default {
   name: "DetailImage",
@@ -29,14 +28,6 @@ export default {
       type: String,
       required: true,
     }
-  },
-  components: {
-    VueZoomer,
-  },
-  methods: {
-    leave() {
-      this.$refs.zoom.reset();
-    },
   },
   computed: {
     ...mapState({

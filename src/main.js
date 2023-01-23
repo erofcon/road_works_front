@@ -2,21 +2,17 @@ import {createApp} from 'vue'
 import store from "@/store";
 import router from './router';
 import PrimeVue from 'primevue/config';
-import VCalendar from 'v-calendar';
 import ToastService from 'primevue/toastservice';
 import ConfirmationService from 'primevue/confirmationservice';
 
 import AppWrapper from "@/AppWrapper.vue";
 
 
-import "primevue/resources/primevue.min.css";
-import "primeicons/primeicons.css";
 import 'primevue/resources/themes/lara-light-blue/theme.css';
 import 'primevue/resources/primevue.css';
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
 import "leaflet/dist/leaflet.css";
-import 'v-calendar/dist/style.css';
 import "@/assets/global.css";
 
 import Card from "primevue/card";
@@ -53,13 +49,13 @@ import {LControlLayers} from "@vue-leaflet/vue-leaflet";
 import {LGeoJson} from "@vue-leaflet/vue-leaflet";
 import {LPopup} from "@vue-leaflet/vue-leaflet";
 import OverlayPanel from 'primevue/overlaypanel';
+import Chart from 'primevue/chart';
 
 const app = createApp(AppWrapper);
 
 app.use(store);
 app.use(router);
 app.use(PrimeVue);
-app.use(VCalendar, {});
 app.use(ToastService);
 app.use(ConfirmationService);
 
@@ -97,5 +93,6 @@ app.component('LControlLayers', LControlLayers);
 app.component('LGeoJson', LGeoJson);
 app.component('LPopup', LPopup);
 app.component('OverlayPanel', OverlayPanel);
+app.component('Chart', Chart);
 
 app.mount('#app');

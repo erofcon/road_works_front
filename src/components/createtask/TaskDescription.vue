@@ -1,6 +1,6 @@
 <template>
   <div class="field my-6">
-    <label for="description" class="text-lg">Описание задачи</label>
+    <label for="description" class="text-lg text-gray-800">Описание задачи</label>
     <Textarea :value="description" @input="updateDescription" rows="5" id="description" class="w-full"/>
   </div>
 </template>

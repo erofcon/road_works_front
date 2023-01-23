@@ -1,19 +1,15 @@
 <template>
-  <Card class="shadow-2">
-    <template #content>
-      <div class="grid">
-        <div class="p-fluid col p-0">
+  <div class="grid">
+    <div class="p-fluid col p-0">
             <span class="p-input-icon-right p-fluid">
               <i class="pi pi-search"/>
               <InputText id="inputtext-right" class="p-inputtext-s p-fluid" placeholder="Поиск" type="text"/>
             </span>
-        </div>
-        <div class="col p-fluid col p-0">
-          <Dropdown placeholder="период" class="ml-4"/>
-        </div>
-      </div>
-    </template>
-  </Card>
+    </div>
+    <div class="col p-fluid col p-0">
+      <Dropdown placeholder="период" class="ml-4"/>
+    </div>
+  </div>
 </template>
 
 <script>

@@ -2,7 +2,7 @@
   <div v-if="loading" class="flex align-items-center justify-content-center">
     <ProgressSpinner strokeWidth="3" animationDuration="1s" class="w-4rem"/>
   </div>
-  <div v-else class="col-12 sm:col-10 md:col-8  xl:col-6 mx-auto mb-8 px-4 container">
+  <div v-else class="col-12 sm:col-10 md:col-8 mx-auto mb-8 px-4 container">
     <TaskHeader/>
 
     <form @submit.prevent="createTask(!v$.$invalid)">

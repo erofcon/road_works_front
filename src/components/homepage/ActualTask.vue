@@ -15,6 +15,7 @@
            class="md:ml-auto block md:h-29rem" style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)">
     </div>
   </div>
+
 </template>
 
 <script>

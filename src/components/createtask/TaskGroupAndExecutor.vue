@@ -1,22 +1,24 @@
 <template>
   <div>
     <div class="my-4">
-      <p class="text-lg mb-2">Выберите группу</p>
+      <p class="text-lg mb-2 text-gray-800">Выберите группу*</p>
       <Dropdown v-model="group"
                 :options="groups"
                 optionLabel="name"
                 placeholder="Выберите группу"
                 :class="{'p-invalid':v$.selectedGroup.$invalid && submitted}"
                 class="w-full"/>
+      <small v-if="v$.selectedGroup.$invalid && submitted" class="text-red-700">выберите группу</small>
     </div>
     <div v-if="group">
-      <p class="text-lg mb-2">Выберите исполнителя</p>
+      <p class="text-lg mb-2 text-gray-800">Выберите исполнителя*</p>
       <Dropdown v-model="executor"
                 :options="relatedUsers"
                 optionLabel="username"
                 placeholder="Выберите исполнителья"
                 :class="{'p-invalid':v$.selectedExecutor.$invalid && submitted}"
                 class="w-full"/>
+      <small v-if="v$.selectedExecutor.$invalid && submitted" class="text-red-700">выберите исполнителья</small>
     </div>
   </div>
 </template>

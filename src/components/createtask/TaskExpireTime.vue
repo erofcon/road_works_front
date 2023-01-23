@@ -1,12 +1,13 @@
 <template>
   <div class="my-6">
-    <p class="text-lg mb-2">Срок исполнения задачи</p>
+    <p class="text-lg mb-2 text-gray-800">Срок исполнения задачи*</p>
     <Calendar
         :model-value="expireDatetime"
         :showIcon="true"
         @date-select="onselectDateTime"
         :class="{'p-invalid':v$.expireDatetime.$invalid && submitted}"
         class="w-full"/>
+    <small v-if="v$.expireDatetime.$invalid && submitted" class="text-red-700">выберите срок исполнения</small>
   </div>
 </template>
 

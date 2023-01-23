@@ -5,13 +5,20 @@
   <div v-else class="col xl:col-10 mx-auto my-5 container">
     <div v-if="tasks" class="grid">
       <div class="col">
-        <TaskListHead/>
-        <OneTaskComponent
-            v-for="task in tasks.items"
-            :key="task.id"
-            :task="task"
-        />
+        <Card>
+          <template #title>
+            <TaskListHead class="my-3"/>
+          </template>
+          <template #content>
+            <OneTaskComponent
+                v-for="task in tasks.items"
+                :key="task.id"
+                :task="task"
+            />
+          </template>
+        </Card>
       </div>
+
       <div class="col-3 hidden lg:block">
         <TaskTypeChange v-on:changeType="changeType"/>
       </div>

@@ -2,12 +2,12 @@
   <div>
     <form @submit.prevent="upload(!v$.$invalid)">
       <div class="field my-6">
-        <label for="description" class="text-base">Описание задачи</label>
+        <label for="description" class="text-lg mb-2 text-gray-800">Описание задачи</label>
         <Textarea v-model="description" rows="5" id="description" class="w-full"/>
       </div>
 
       <div class="my-5">
-        <p class="text-base mb-2">Выбрать видео файл</p>
+        <p class="text-lg mb-2 text-gray-800">Выбрать видео файл*</p>
         <FileUpload
             mode="advanced"
             chooseLabel="Прикрепить файл"
@@ -19,10 +19,10 @@
             :showUploadButton="false"
             accept="video/*"
         />
-        <span v-if="v$.videoFile.$invalid && submitted" class="text-red-500 pl-2">*выберите видео файл</span>
+        <small v-if="v$.videoFile.$invalid && submitted" class="text-red-700">выберите видео файл</small>
       </div>
       <div class="field my-6">
-        <label for="description" class="text-base">Время начала видео</label>
+        <label for="description" class="text-lg mb-2 text-gray-800">Время начала видео*</label>
         <Calendar
             class="w-12"
             v-model="startDatetime"
@@ -30,7 +30,7 @@
             :showSeconds="true"
             :class="{'p-invalid':v$.startDatetime.$invalid && submitted}"
         />
-        <span v-if="v$.startDatetime.$invalid && submitted" class="text-red-500 pl-2">*введите дату</span>
+        <small v-if="v$.startDatetime.$invalid && submitted" class="text-red-700">введите дату</small>
       </div>
 
       <ProgressBar v-if="sending" class="my-5" :value="uploadProgress"/>

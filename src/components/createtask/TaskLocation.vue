@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="text-lg mb-2">Выберите местоположение</p>
+    <p class="text-lg mb-2 text-gray-800">Выберите местоположение</p>
     <l-map style="height: 300px" :zoom="zoom" :center="center" @click="getPosition">
       <l-tile-layer :min-zoom="3" :max-zoom="18" :url="url" :attribution="attribution"></l-tile-layer>
       <l-marker v-if="location" :lat-lng="location"></l-marker>
