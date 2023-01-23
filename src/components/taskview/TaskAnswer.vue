@@ -1,24 +1,34 @@
 <template>
-  <DataTable :value="taskAnswers" class="p-datatable-sm">
-    <Column header="Дата">
-      <template #body="{data}">
-          <span>
-            {{ moment(new Date(data.create_datetime)).format('YYYY.MM.DD') }}
-          </span>
-      </template>
-    </Column>
-    <Column field="description" header="Описание"/>
-    <Column #body="{data}" header="изображение" headerStyle="width: 20%">
-      <div v-if="data.answer_images" class="grid">
-        <div v-for="image in data.answer_images"
-             class="col-12 md:col-6 lg:col-4"
-             :key="image.id">
-          <Image :src="baseUrl+'/'+image.url" alt="Image Text" :preview="true"
-                 imageStyle="cursor: pointer; max-width: 80px;"/>
+  <div>
+    <div class="border-bottom-1 surface-border border-round pb-3">
+      <span class="font-bold text-900 text-base">Ответы</span>
+    </div>
+    <div>
+      <div v-for="answer in taskAnswers" class="py-5 border-top-1 surface-border">
+        <div class="flex align-items-center justify-content-between">
+          <div class="flex align-items-center">
+            <img src="https://www.primefaces.org/primeblocks-vue/images/blocks/avatars/circle/avatar-m-1.png"
+                 class="w-3rem h-3rem flex-shrink-0 mr-3" alt="logo">
+            <div class="flex flex-column">
+              <span class="text-900 font-medium mb-1 cursor-pointer">{{ answer.creator.username }}</span>
+              <span
+                  class="text-500 font-medium text-sm">{{
+                  moment(new Date(answer.create_datetime)).format('YYYY.MM.DD')
+                }}</span>
+            </div>
+          </div>
+          <div>
+            <span class="mr-2">
+              <Image class="px-1" v-for="image in answer.answer_images" :src="baseUrl+'/'+image.url" alt="Image Text"
+                     :preview="true"
+                     imageStyle="cursor: pointer; max-width: 80px;"/>
+            </span>
+          </div>
         </div>
+        <p class="text-600 p-0 m-0 line-height-3 pt-3">{{ answer.description }}</p>
       </div>
-    </Column>
-  </DataTable>
+    </div>
+  </div>
 </template>
 
 <script>

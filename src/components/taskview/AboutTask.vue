@@ -1,123 +1,79 @@
 <template>
-
+  <ConfirmDialog></ConfirmDialog>
   <div>
-    <div class="flex align-items-center text-xl font-medium text-900 mb-4">Описание задачи</div>
-    <div class="flex align-items-center justify-content-between mb-3">
-      <span class="text-900 font-medium text-3xl block">
-        {{ moment(new Date(task.create_datetime)).format('DD.MM.YYYY HH:mm') }}</span>
+    <div class="flex align-items-center text-lg font-medium text-800 mb-1">Описание задачи</div>
+
+    <div class="flex align-items-center pt-3 pb-2 flex-wrap">
+      <div class="text-500 w-full md:w-3 font-medium">дата создания</div>
+      <div class="text-900 w-full md:w-5 font-medium">
+        {{ moment(new Date(task.create_datetime)).format('DD.MM.YYYY HH:mm') }}
+      </div>
     </div>
-    <div class="font-semibold font-italic text-900 mb-3">{{ task.description }}</div>
-    <div class="font-bold text-900 mb-3">Статус</div>
-    <div class="flex align-items-center mb-5">
-      <i class="w-2rem h-2rem flex-shrink-0 border-circle bg-green-500 mr-2 cursor-pointer border-2 surface-border transition-all transition-duration-300"></i>
-      <span class="font-bold text-900">выполнено</span>
+
+    <div class="flex align-items-center pb-4 flex-wrap">
+      <div class="text-500 w-full md:w-3 font-medium">срок исполнения</div>
+      <div class="text-900 w-full md:w-5 font-medium">{{
+          moment(new Date(task.lead_datetime)).format('DD.MM.YYYY HH:mm')
+        }}
+      </div>
+    </div>
+
+    <div class="font-medium text-900 mb-3">{{ task.description }}</div>
+    <div class="font-medium text-500 mb-3">статус</div>
+
+    <div v-if="task.task_status === 'is_done'" class="flex align-items-center mb-5">
+      <i class="w-2rem h-2rem flex-shrink-0 border-circle bg-green-500 mr-2 border-2 surface-border transition-all transition-duration-300"></i>
+      <span class="font-medium text-900">выполнено</span>
+    </div>
+
+    <div v-if="task.task_status === 'on_execution'" class="flex align-items-center mb-5">
+      <i class="w-2rem h-2rem flex-shrink-0 border-circle bg-primary-500 mr-2 border-2 surface-border transition-all transition-duration-300"></i>
+      <span class="font-medium text-900">на исполнении</span>
+    </div>
+
+    <div v-if="task.task_status === 'is_expired'" class="flex align-items-center mb-5">
+      <i class="w-2rem h-2rem flex-shrink-0 border-circle bg-red-500 mr-2 border-2 surface-border transition-all transition-duration-300"></i>
+      <span class="font-medium text-900">просрочено</span>
     </div>
 
 
+    <div class="grid">
+      <div class="col">
+        <div
+            class="border-1 surface-border surface-card border-round p-3 flex flex-column md:flex-row align-items-center z-1">
+          <i class="pi pi-user-edit text-600 text-2xl md:text-4xl mb-2 md:mb-0 mr-0 md:mr-3"></i>
+          <div>
+            <div class="text-900 font-medium mb-1">{{ task.task_creator.username }}</div>
+            <span class="text-600 text-sm hidden md:block">Куратор</span></div>
+        </div>
+      </div>
+      <div class="col">
+        <div
+            class="border-1 surface-border surface-card border-round p-3 flex flex-column md:flex-row align-items-center z-1">
+          <i class="pi pi-user text-600 text-2xl md:text-3xl mb-2 md:mb-0 mr-0 md:mr-3"></i>
+          <div>
+            <div class="text-900 font-medium mb-1">{{ task.task_executor.username }}</div>
+            <span class="text-600 text-sm hidden md:block">Исполнитель</span></div>
+        </div>
+      </div>
+    </div>
 
-    <div class="mb-3 flex align-items-center justify-content-between"><span class="font-bold text-900">Size</span><a
-        tabindex="0" class="cursor-pointer text-600 text-sm flex align-items-center">Size Guide <i
-        class="ml-1 pi pi-angle-right"></i></a></div>
-    <div class="grid grid-nogutter align-items-center mb-5">
-      <div
-          class="col h-3rem border-1 border-300 text-900 inline-flex justify-content-center align-items-center flex-shrink-0 border-round mr-3 cursor-pointer hover:surface-100 transition-duration-150 transition-colors">
-        XS
-      </div>
-      <div
-          class="col h-3rem border-1 border-300 text-900 inline-flex justify-content-center align-items-center flex-shrink-0 border-round mr-3 cursor-pointer hover:surface-100 transition-duration-150 transition-colors">
-        S
-      </div>
-      <div
-          class="col h-3rem border-1 border-300 text-900 inline-flex justify-content-center align-items-center flex-shrink-0 border-round mr-3 cursor-pointer hover:surface-100 transition-duration-150 transition-colors border-blue-500 border-2 text-blue-500">
-        M
-      </div>
-      <div
-          class="col h-3rem border-1 border-300 text-900 inline-flex justify-content-center align-items-center flex-shrink-0 border-round mr-3 cursor-pointer hover:surface-100 transition-duration-150 transition-colors">
-        L
-      </div>
-      <div
-          class="col h-3rem border-1 border-300 text-900 inline-flex justify-content-center align-items-center flex-shrink-0 border-round cursor-pointer hover:surface-100 transition-duration-150 transition-colors">
-        XL
-      </div>
+
+    <div class="mt-5">
+      <Button
+          v-if="task.task_status==='on_execution' && currentUser.user.is_creator && task.task_creator.id===currentUser.user.id"
+          @click="closeTask"
+          label="Закрыть задачу" class="md:w-23rem"/>
     </div>
-    <div class="font-bold text-900 mb-3">Quantity</div>
-    <div class="flex flex-column sm:flex-row sm:align-items-center sm:justify-content-between"><span
-        class="p-inputnumber p-component p-inputwrapper p-inputwrapper-filled p-inputnumber-buttons-horizontal w-8rem"
-        spinnermode="horizontal"><input class="p-inputtext p-component p-inputnumber-input w-3rem text-center"
-                                        role="spinbutton" aria-valuemin="0" aria-valuenow="1"><!----><button
-        class="p-button p-component p-button-icon-only p-inputnumber-button p-inputnumber-button-up p-button-text"
-        type="button" tabindex="-1" aria-hidden="true"><!----><span class="pi pi-plus p-button-icon"></span><span
-        class="p-button-label">&nbsp;</span><!----><span class="p-ink" role="presentation"></span></button><button
-        class="p-button p-component p-button-icon-only p-inputnumber-button p-inputnumber-button-down p-button-text"
-        type="button" tabindex="-1" aria-hidden="true"><!----><span class="pi pi-minus p-button-icon"></span><span
-        class="p-button-label">&nbsp;</span><!----><span class="p-ink" role="presentation"></span></button></span>
-      <div class="flex align-items-center flex-1 mt-3 sm:mt-0 ml-0 sm:ml-5">
-        <button class="p-button p-component flex-1 mr-5" type="button" aria-label="Add to Cart"><!----><!----><span
-            class="p-button-label">Add to Cart</span><!----><span class="p-ink" role="presentation"
-                                                                  style="height: 383px; width: 383px; top: -182.9px; left: 20.9px;"></span>
-        </button>
-        <i class="pi text-2xl cursor-pointer pi-heart text-600"></i></div>
-    </div>
+
   </div>
 
-
-  <!--  <div>-->
-
-  <!--    <div>-->
-  <!--      <span href="#">-->
-  <!--        <i class="pi pi-calendar mr-2"></i>-->
-  <!--        <strong>дата создания</strong>-->
-  <!--        {{ moment(new Date(task.create_datetime)).format('YYYY.MM.DD') }}-->
-  <!--      </span>-->
-  <!--    </div>-->
-
-  <!--    <div class="mt-1">-->
-  <!--      <div v-if="task.task_status === 'is_done'" class="flex align-items-center">-->
-  <!--        <Badge severity="success" class="mr-1 badge"></Badge>-->
-  <!--        <span>выполнено</span>-->
-  <!--      </div>-->
-
-  <!--      <div v-if="task.task_status === 'on_execution'" class="flex align-items-center">-->
-  <!--        <Badge severity="info" class="mr-1 badge"></Badge>-->
-  <!--        <span>на выполнении</span>-->
-  <!--      </div>-->
-
-  <!--      <div v-if="task.task_status === 'is_expired'" class="flex align-items-center">-->
-  <!--        <Badge severity="danger" class="mr-1 badge"></Badge>-->
-  <!--        <span>просрочено</span>-->
-  <!--      </div>-->
-  <!--    </div>-->
-
-  <!--    <div class="my-3">-->
-  <!--      <span class="font-italic">-->
-  <!--        {{ task.description }}-->
-  <!--      </span>-->
-  <!--    </div>-->
-
-  <!--    <div>-->
-  <!--      <div class="mt-2">-->
-  <!--        <a href="#">-->
-  <!--          <i class="pi pi-user-edit mr-2"></i>-->
-  <!--          <strong>создатель</strong>-->
-  <!--          {{task.task_creator.username}}-->
-  <!--        </a>-->
-  <!--      </div>-->
-
-  <!--      <div class="mt-2">-->
-  <!--        <a href="#">-->
-  <!--          <i class="pi pi-user mr-2"></i>-->
-  <!--          <strong>исполнитель</strong>-->
-  <!--          {{task.task_executor.username}}-->
-  <!--        </a>-->
-  <!--      </div>-->
-  <!--    </div>-->
-
-  <!--  </div>-->
 </template>
 
 <script>
 import {mapState} from "vuex";
 import moment from "moment";
+import {Get} from "@/api/apiroutes";
 
 export default {
   name: "AboutTask",
@@ -126,22 +82,32 @@ export default {
       moment: moment,
     }
   },
+  methods: {
+    closeTask() {
+      this.$confirm.require({
+        message: 'Вы действительно хотите закрыть задачу?',
+        header: ' ',
+        icon: 'pi pi-exclamation-triangle text-yellow-500',
+        acceptLabel: 'Да',
+        rejectLabel: 'Нет',
+        accept: () => {
+          Get.closeTask(this.$route.params.id).then(value => {
+            this.$store.commit('task/changeTaskStatus');
+            this.$toast.add({severity: 'success', summary: 'Confirmed', detail: 'You have accepted', life: 3000});
+          })
+        },
+      });
+    },
+  },
   computed: {
     ...mapState({
       task: state => state.task.task,
+      currentUser: state => state.authenticate.currentUser,
     }),
   },
 }
 </script>
 
 <style scoped>
-a {
-  text-decoration: none;
-}
-
-.badge {
-  height: 15px;
-  width: 15px;
-}
 
 </style>
