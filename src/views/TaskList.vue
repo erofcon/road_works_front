@@ -86,6 +86,9 @@ export default {
 
     observer.observe(this.$refs.observer)
   },
+  unmounted() {
+    this.$store.commit('taskList/resetStore');
+  },
   computed: {
     ...mapState({
       tasks: state => state.taskList.tasks,

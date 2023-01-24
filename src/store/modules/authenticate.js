@@ -23,10 +23,6 @@ export const authenticate = {
             state.status.loggedIn = false;
             state.currentUser = null;
         },
-        refreshToken(state, accessToken) {
-            state.status.loggedIn = true;
-            state.currentUser = {...state.currentUser, access_token: accessToken};
-        }
     },
     getters: {
         isAuthenticated(state) {
@@ -45,12 +41,12 @@ export const authenticate = {
                 }
             )
         },
-        async logout({commit}) {
+        logout({commit}) {
             User_service.removeUser();
             commit('logout');
         },
-        refreshToken({commit}, accessToken) {
-            commit('refreshToken', accessToken);
+        refreshToken({commit}, user) {
+            commit('loginSuccess', user);
         }
     },
 };

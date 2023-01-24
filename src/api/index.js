@@ -47,7 +47,7 @@ defaultApiInstance.interceptors.response.use(
                 const result = await defaultApiInstance.post('/refresh', form, {headers: {'Content-Type': 'multipart/form-data'}});
                 const user = result.data;
 
-                await store.dispatch('authenticate/refreshToken', user.access_token)
+                await store.dispatch('authenticate/refreshToken', user)
                 User_service.setUser(user)
 
                 return defaultApiInstance(originalConfig);

@@ -1,7 +1,7 @@
 <template>
-  <div class="col bg-white border-bottom-1 border-black-alpha-10 shadow-1">
+  <div class="col border-bottom-1 border-black-alpha-10 shadow-1 p-0">
     <div class="container">
-      <Menubar :model="items" class="border-noround shadow-none border-0" style="background: none;">
+      <Menubar :model="items">
         <template #start>
           <svg @click="$router.push('/')" class="cursor-pointer flex mr-5" xmlns="http://www.w3.org/2000/svg" width="35"
                height="35"
@@ -13,12 +13,12 @@
         </template>
         <template #end>
           <div class="flex align-items-center">
+            <Button icon="pi pi-moon" class="p-button-rounded p-button-secondary p-button-text"/>
             <Button icon="pi pi-bell" class="p-button-rounded p-button-secondary p-button-text mx-3"/>
             <Avatar class="cursor-pointer" @click="userToggle"
                     image="https://avatars.githubusercontent.com/u/104511593?v=4"
                     shape="circle"/>
           </div>
-
         </template>
       </Menubar>
     </div>
@@ -26,16 +26,33 @@
 
 
   <OverlayPanel ref="popup">
-      <span>
-        Вы вошли как @admin
+    <div class="pt-3">
+       <span class="border-bottom-1 border-gray-300 px-3 pb-2">
+        Вы вошли как <span class="font-bold">{{ currentUser.user.username }}</span>
       </span>
+      <nav class="mt-4 mb-2">
+        <ul>
+          <li class="text-black-alpha-90 block hover:bg-gray-200 px-3 py-2">
+            <div class="flex align-items-center">
+              <i class="pi pi-cog"></i>
+              <span class="pl-1"> настройки</span>
+            </div>
+          </li>
+          <li @click="logout" class="text-black-alpha-90 block hover:bg-gray-200 px-3 py-2">
+            <div class="flex align-items-center">
+              <i class="pi pi-sign-out text-sm"></i>
+              <span class="pl-1">выход</span>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </OverlayPanel>
-
-
 </template>
 
 <script>
 import Menubar from 'primevue/menubar';
+import {mapState} from "vuex";
 
 export default {
   name: "NavBar",
@@ -69,7 +86,7 @@ export default {
         {
           label: 'Список задач',
           icon: 'pi pi-list',
-          to: '/task_list/on_execution',
+          to: '/task_list/all_tasks',
         },
         {
           label: 'Карта',
@@ -82,27 +99,23 @@ export default {
         },
       ],
 
-      // userToggle: [
-      //   {
-      //     label: 'Настройки',
-      //     icon: 'pi pi-cog',
-      //   },
-      //   {
-      //     separator: true,
-      //   },
-      //   {
-      //     label: 'Выход',
-      //     icon: 'pi pi-sign-out',
-      //   },
-      // ],
-
     }
 
   },
   methods: {
     userToggle(event) {
       this.$refs.popup.toggle(event);
-    }
+    },
+    logout() {
+      this.$refs.popup.toggle(event);
+      this.$store.dispatch("authenticate/logout");
+      this.$router.push('/login');
+    },
+  },
+  computed: {
+    ...mapState({
+      currentUser: state => state.authenticate.currentUser,
+    }),
   },
 }
 </script>
@@ -144,10 +157,21 @@ nav ul li:hover {
   background-color: #343a40 !important;
 }
 
-::v-deep(.p-chip) {
+:deep(.p-chip) {
   .p-chip-text {
     font-size: 102px;
     margin: 0;
   }
+}
+
+:deep(.p-menubar-root-list .p-menuitem-active) {
+  .p-submenu-list {
+    z-index: 9999;
+  }
+}
+
+.p-menubar {
+  border: 0;
+  background: none;
 }
 </style>

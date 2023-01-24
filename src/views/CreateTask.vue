@@ -27,7 +27,7 @@
       </div>
     </template>
   </Dialog>
-
+  <ScrollTop class="bg-primary"/>
 </template>
 
 <script>

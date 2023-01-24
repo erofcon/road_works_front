@@ -3,7 +3,7 @@
   <div class="surface-ground col m-0 p-0 mb-8">
     <HomeHeader class="fadeinup animation-duration-300"/>
     <div class="container">
-      <ActualTask class="fadeindown animation-duration-300" />
+      <ActualTask class="fadeindown animation-duration-300"/>
       <TasksStatsCard/>
       <div class="grid flex justify-content-evenly">
         <MapShow/>
@@ -13,6 +13,7 @@
     </div>
   </div>
   <Footer/>
+  <ScrollTop class="bg-primary"/>
 </template>
 
 <script>

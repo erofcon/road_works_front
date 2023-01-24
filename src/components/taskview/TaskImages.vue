@@ -1,6 +1,4 @@
 <template>
-
-
   <Galleria
       :value="task.task_images"
       v-model:activeIndex="activeIndex"

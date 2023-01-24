@@ -17,7 +17,10 @@ export const taskList = {
             if (state.tasks) {
                 state.tasks.items = [];
             }
-        }
+        },
+        resetStore(state) {
+            state.tasks = null;
+        },
     },
 
     actions: {

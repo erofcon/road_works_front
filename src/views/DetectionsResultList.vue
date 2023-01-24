@@ -18,6 +18,7 @@
       </template>
     </Card>
   </div>
+  <ScrollTop class="bg-primary"/>
 </template>
 
 <script>

@@ -8,54 +8,72 @@ import DetectionsResultList from "@/views/DetectionsResultList";
 import DetectionResultView from "@/views/DetectionResultView";
 import TaskList from "@/views/TaskList";
 import MapView from "@/views/MapView";
+import store from "@/store";
 
+const authGuard = function (to, from, next) {
+    if (!store.state.authenticate.status.loggedIn) next({name: 'login'});
+    else next()
+}
 
 const routes = [
     {
         path: '/',
         name: 'home',
         component: HomePage,
+        beforeEnter: authGuard,
     },
     {
         path: '/create_task',
         name: 'createTask',
         component: CreateTask,
+        beforeEnter: authGuard,
     },
     {
         path: '/run_detection',
         name: 'runDetection',
         component: RunDetection,
+        beforeEnter: authGuard,
     },
     {
         path: '/task/:id',
         name: 'task',
         component: TaskView,
+        beforeEnter: authGuard,
     },
     {
         path: '/detection_result',
         name: 'detectionResult',
         component: DetectionsResultList,
+        beforeEnter: authGuard,
     },
     {
         path: '/detection_result_view/:id',
         name: 'detectionResultView',
         component: DetectionResultView,
+        beforeEnter: authGuard,
     },
     {
         path: '/task_list/:tasks_type',
         name: 'TaskList',
         component: TaskList,
+        beforeEnter: authGuard,
     },
     {
         path: '/map',
         name: 'MapView',
         component: MapView,
+        beforeEnter: authGuard,
     },
     {
         path: '/login',
         name: 'login',
         component: Authentication,
     },
+    // {
+    //     path: '/:pathMatch(.*)*',
+    //     name: 'pageNotFound',
+    //     component: Authentication,
+    // },
 
 ]
 
@@ -64,17 +82,5 @@ const router = createRouter({
     routes
 })
 
-// router.beforeEach((to, from, next) => {
-//     const publicPages = ['/login'];
-//     const authRequired = !publicPages.includes(to.path);
-//     const loggedIn = localStorage.getItem('user');
-//
-//     if (authRequired && !loggedIn) {
-//         next('/login');
-//     } else {
-//         next();
-//     }
-//
-// });
 
 export default router

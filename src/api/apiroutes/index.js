@@ -143,7 +143,7 @@ export const Post = {
 
     createAnswer(description, files, taskID) {
         const form = new FormData();
-        form.append('description', description);
+        form.append('description', description ?? '');
         form.append('task_id', taskID);
 
         if (files) {

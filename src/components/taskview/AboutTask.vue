@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="font-medium text-900 mb-3">{{ task.description }}</div>
+    <div class="font-normal text-900 mb-3">{{ task.description }}</div>
     <div class="font-medium text-500 mb-3">статус</div>
 
     <div v-if="task.task_status === 'is_done'" class="flex align-items-center mb-5">
@@ -61,11 +61,18 @@
 
     <div class="mt-5">
       <Button
+          v-if="task.task_status==='on_execution' && (task.task_creator.id===currentUser.user.id || task.task_executor.id===currentUser.user.id)"
+          @click="answerDisplay=!answerDisplay"
+          label="Добавить ответ" class="md:w-14rem mr-4 p-button-sm"/>
+      <Button
           v-if="task.task_status==='on_execution' && currentUser.user.is_creator && task.task_creator.id===currentUser.user.id"
           @click="closeTask"
-          label="Закрыть задачу" class="md:w-23rem"/>
+          label="Закрыть задачу" class="md:w-14rem mt-2 p-button-sm"/>
     </div>
 
+    <Dialog header="добавление ответа" v-model:visible="answerDisplay">
+      <AddAnswer @closeDialog="closeDialog"/>
+    </Dialog>
   </div>
 
 </template>
@@ -74,15 +81,21 @@
 import {mapState} from "vuex";
 import moment from "moment";
 import {Get} from "@/api/apiroutes";
+import AddAnswer from "@/components/taskview/AddAnswer";
 
 export default {
   name: "AboutTask",
+  components: {AddAnswer},
   data() {
     return {
       moment: moment,
+      answerDisplay: false,
     }
   },
   methods: {
+    closeDialog() {
+      this.answerDisplay = false;
+    },
     closeTask() {
       this.$confirm.require({
         message: 'Вы действительно хотите закрыть задачу?',
