@@ -10,6 +10,7 @@
 import TrackerDetectionUpload from "@/components/rundetection/TrackerDetectionUpload.vue";
 import XmlDetectionUpload from "@/components/rundetection/XmlDetectionUpload.vue";
 import RunDetectionHeader from "@/components/rundetection/RunDetectionHeader.vue";
+import {mapState} from "vuex";
 
 export default {
   name: "RunDetection",
@@ -38,6 +39,16 @@ export default {
       }
     }
   },
+  mounted() {
+    if (!this.currentUser.user.is_creator) {
+      this.$router.push({name: 'pageNotFound'});
+    }
+  },
+  computed: {
+    ...mapState({
+      currentUser: state => state.authenticate.currentUser,
+    }),
+  }
 }
 </script>
 

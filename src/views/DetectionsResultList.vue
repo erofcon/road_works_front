@@ -24,6 +24,7 @@
 <script>
 import {Get} from "@/api/apiroutes";
 import OneDetectionResult from "@/components/detectionresultlist/OneDetectionResult.vue";
+import {mapState} from "vuex";
 
 export default {
   name: "DetectionsResultList",
@@ -35,13 +36,22 @@ export default {
     }
   },
   mounted() {
-    Get.getAllDetections().then(result => {
-      this.loadedData = result.data;
-      this.isLoading = false;
-    }).catch(reason => {
-      this.$router.push('/login');
-    })
-  }
+    if (!this.currentUser.user.is_creator) {
+      this.$router.push({name: 'pageNotFound'});
+    } else {
+      Get.getAllDetections().then(result => {
+        this.loadedData = result.data;
+        this.isLoading = false;
+      }).catch(reason => {
+        this.$router.push('/login');
+      })
+    }
+  },
+  computed: {
+    ...mapState({
+      currentUser: state => state.authenticate.currentUser,
+    }),
+  },
 }
 </script>
 

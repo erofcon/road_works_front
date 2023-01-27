@@ -9,6 +9,7 @@ import DetectionResultView from "@/views/DetectionResultView";
 import TaskList from "@/views/TaskList";
 import MapView from "@/views/MapView";
 import store from "@/store";
+import PageNotFound from "@/views/PageNotFound";
 
 const authGuard = function (to, from, next) {
     if (!store.state.authenticate.status.loggedIn) next({name: 'login'});
@@ -69,11 +70,11 @@ const routes = [
         name: 'login',
         component: Authentication,
     },
-    // {
-    //     path: '/:pathMatch(.*)*',
-    //     name: 'pageNotFound',
-    //     component: Authentication,
-    // },
+    {
+        path: '/pagenotfound',
+        name: 'pageNotFound',
+        component: PageNotFound,
+    },
 
 ]
 

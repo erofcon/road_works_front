@@ -1,15 +1,11 @@
 <template>
   <l-map style="height: 93vh" :zoom="zoom" :maxZoom="18" :center="center">
-    <l-control-layers position="topright"></l-control-layers>
     <l-tile-layer
-        v-for="tileProvider in tileProviders"
-        :key="tileProvider.name"
-        :name="tileProvider.name"
-        :visible="tileProvider.visible"
-        :url="tileProvider.url"
-        :attribution="tileProvider.attribution"
+        :url=selectedTile.url
         layer-type="base"
-    />
+        :name=selectedTile.name
+        attribution='&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    ></l-tile-layer>
     <l-geo-json
         :geojson="geoJsonData"
         @click="getTaskView"
@@ -18,7 +14,8 @@
         <div v-for="task in tasksData" :key="task.id">
           <div class="grid">
             <div class="col">
-              <img class="w-12" :src="baseUrl+'/'+task.url" alt="image none" @click="fullImg($event.target.src)">
+              <img class="w-12 cursor-pointer" :src="baseUrl+'/'+task.url" alt="image none"
+                   @click="fullImg($event.target.src)">
             </div>
             <div class="col">
               <div class="flex align-items-center">
@@ -58,12 +55,56 @@
       </l-popup>
 
     </l-geo-json>
-
+    <l-control>
+      <Button class="p-button-raised p-button-text surface-ground text-color-secondary p-2"
+              @click="sideBarVisibleRight = true">
+        <i class="pi pi-sliders-h text-3xl"></i>
+      </Button>
+    </l-control>
   </l-map>
 
   <Dialog v-model:visible="dialogDisplay">
     <img class="max-w-30rem p-bu" :src="fullImgUrl" alt="img not loaded">
   </Dialog>
+
+  <Sidebar v-model:visible="sideBarVisibleRight" position="right">
+    <div class="border-bottom-1 pb-2 border-gray-400">
+      <span class="font-bold">
+        Слои карты
+      </span>
+      <div class="mt-2">
+        <div v-for="tile in tiles" class="mb-2">
+          <RadioButton :inputId="tile.id" name="tile" :value="tile" v-model="selectedTile"/>
+          <label class="pl-2" :for="tile.id">{{ tile.name }}</label>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="border-bottom-1 pb-2 border-gray-400 pt-3">
+      <div class="flex justify-content-between align-items-center">
+         <span class="font-bold">
+           Задачи
+         </span>
+        <Button class="p-button-text text-color-secondary p-0" @click="showTaskHead=!showTaskHead">
+          <i class="pi text-xl" :class="{'pi-angle-down':!showTaskHead, 'pi-angle-up':showTaskHead}"></i>
+        </Button>
+      </div>
+      <div v-if="showTaskHead">
+
+        <Dropdown placeholder="период"/>
+      </div>
+
+      <div class="mt-2">
+        <div v-for="type in taskTypes" class="mb-2">
+          <RadioButton :inputId="type.id" name="type" :value="type" v-model="selectedTaskType"/>
+          <label class="pl-2" :for="type.id">{{ type.name }}</label>
+        </div>
+      </div>
+    </div>
+
+  </Sidebar>
+
 
 </template>
 
@@ -76,30 +117,48 @@ export default {
   name: "MapView",
   data() {
     return {
+      sideBarVisibleRight: false,
       dialogDisplay: false,
       fullImgUrl: null,
       moment: moment,
       baseUrl: defaultApiInstance.defaults.baseURL,
       zoom: 9,
       center: [43.500826, 43.661079],
-      tileProviders: [
-        {
-          name: 'Топографическая карта',
-          visible: true,
-          url: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-          attribution:
-              '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-        },
-        {
-          name: 'Географическая карта',
-          visible: false,
-          url: 'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
-          attribution:
-              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        },
-      ],
       geoJsonData: null,
       tasksData: null,
+      selectedTile: null,
+      selectedTaskType: null,
+      showTaskHead: false,
+      tiles: [
+        {
+          id: "1",
+          name: 'Топографическая карта',
+          url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+        },
+        {
+          id: "2",
+          name: 'Географическая карта',
+          url: 'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
+        }
+      ],
+      taskTypes: [
+        {
+          id: 'is_done',
+          name: 'Выполненые задачи',
+        },
+        {
+          id: 'is_expired',
+          name: 'Просроченные задачи',
+        },
+        {
+          id: 'on_execution',
+          name: 'Задачи на исполнении',
+        },
+        {
+          id: 'all_tasks',
+          name: 'Все задачи',
+        }
+      ]
     };
   },
   methods: {
@@ -120,6 +179,8 @@ export default {
     },
   },
   mounted() {
+    this.selectedTile = this.tiles[0];
+    this.selectedTaskType = this.taskTypes[2];
     this.getGeoJsonDoneData();
   }
 }

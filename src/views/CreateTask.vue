@@ -80,7 +80,11 @@ export default {
     },
   },
   mounted() {
-    this.loadingPage();
+    if (!this.currentUser.user.is_creator) {
+      this.$router.push({name: 'pageNotFound'});
+    } else {
+      this.loadingPage();
+    }
   },
   unmounted() {
     this.$store.commit('createTask/resetStore');
@@ -88,6 +92,7 @@ export default {
   computed: {
     ...mapState({
       selectedGroupId: state => state.createTask.selectedGroupId,
+      currentUser: state => state.authenticate.currentUser,
     }),
   }
 }

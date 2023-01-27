@@ -65,6 +65,7 @@ export default {
         {
           label: 'Создать',
           icon: 'pi pi-file-edit',
+          visible: false,
           items: [
             {
               label: 'Создать задачу',
@@ -80,6 +81,7 @@ export default {
         },
         {
           label: ' Результат детектирования',
+          visible: false,
           icon: 'pi pi-truck',
           to: '/detection_result',
         },
@@ -111,6 +113,13 @@ export default {
       this.$store.dispatch("authenticate/logout");
       this.$router.push('/login');
     },
+    userRouts() {
+      if (this.currentUser.user.is_creator) this.items[0].visible = true;
+      if (this.currentUser.user.is_creator) this.items[1].visible = true;
+    },
+  },
+  mounted() {
+    this.userRouts();
   },
   computed: {
     ...mapState({

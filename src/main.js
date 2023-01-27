@@ -48,8 +48,11 @@ import {LMarker} from "@vue-leaflet/vue-leaflet";
 import {LControlLayers} from "@vue-leaflet/vue-leaflet";
 import {LGeoJson} from "@vue-leaflet/vue-leaflet";
 import {LPopup} from "@vue-leaflet/vue-leaflet";
+import {LControl} from "@vue-leaflet/vue-leaflet";
 import OverlayPanel from 'primevue/overlaypanel';
 import Chart from 'primevue/chart';
+import Inplace from 'primevue/inplace';
+
 
 const app = createApp(AppWrapper);
 
@@ -94,5 +97,7 @@ app.component('LGeoJson', LGeoJson);
 app.component('LPopup', LPopup);
 app.component('OverlayPanel', OverlayPanel);
 app.component('Chart', Chart);
+app.component('LControl', LControl);
+app.component('Inplace', Inplace);
 
 app.mount('#app');
